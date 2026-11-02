@@ -257,7 +257,7 @@ function createWhatsAppUrl(product) {
 
 function App() {
   const [loadingPhase, setLoadingPhase] = useState(() => (
-    window.location.pathname.replace(/\/+$/, '') === '/admin' ? 'hidden' : 'loading'
+    window.location.pathname.replace(/\/+$/, '').endsWith('/admin') ? 'hidden' : 'loading'
   ))
   const [products, setProducts] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.products)
@@ -329,7 +329,7 @@ function App() {
     localStorage.setItem('zoo-variedades-dark-mode', String(darkMode))
   }, [darkMode])
 
-  const isAdminRoute = window.location.pathname.replace(/\/+$/, '') === '/admin'
+  const isAdminRoute = window.location.pathname.replace(/\/+$/, '').endsWith('/admin')
   const activeTheme = darkMode
     ? {
         ...theme,
@@ -887,7 +887,7 @@ function App() {
           <a href="#catalogo">Catálogo</a>
         </nav>
         <div className="header-actions">
-          <a className="admin-entry-link" href="/admin">Área da equipe</a>
+          <a className="admin-entry-link" href={`${import.meta.env.BASE_URL}admin/`}>Área da equipe</a>
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((value) => !value)} aria-pressed={darkMode}>
             {darkMode ? '☀️ Claro' : '🌙 Escuro'}
           </button>
